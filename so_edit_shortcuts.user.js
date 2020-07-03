@@ -31,7 +31,7 @@ var rootNode = $("#content");
 var scConfig = [
     // titleName,   tagText,  btnText,          bSoloTag, bNotTag, keyTxt, keyCode, kbModifiers (Alt/Ctrl/Shift), kbModArry, bWrapByWord
     // 0            1         2                 3      4      5          6   7        8   9
-    ["Keyboard",    "kbd",    "<kbd>kb</kbd>",  false, false, "K",       75, ["Alt"], [], true],
+    ["Keyboard",    "kbd",    "<kbd>k</kbd>",  false, false, "K",       75, ["Alt"], [], true],
 ];
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
