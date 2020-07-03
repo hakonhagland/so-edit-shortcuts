@@ -36,14 +36,8 @@ var scConfig = [
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
-$("textarea.wmd-input").each (AddOurButtonsAsNeeded);
-
-rootNode.on ("focus",   "textarea.wmd-input", AddOurButtonsAsNeeded);
 rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
 rootNode.on ("click",   ".tmAdded",  InsertOurTagByClick);
-rootNode.on ("click",   "#self-answer-popup > .popup-actions .popup-submit",  () => {
-    $("textarea.wmd-input").each (AddOurButtonsAsNeeded);
-} );
 
 /*--- Pre-build button HTML. It's like:
         <li class="wmd-button tmAdded wmd-kbd-button" title="Keyboard tag &lt;kbd&gt; Alt+K">
@@ -81,39 +75,6 @@ for (let btn of scConfig) {
     targetKeyCodes.push (btn[6]);
 }
 
-function AddOurButtonsAsNeeded () {
-    var jThis   = $(this);
-    if ( ! jThis.data ("hasKbdBttn") ) {
-        //--- Find the button bar and add our buttons after the last, not help, button.
-        var btnBar  = jThis.closest (".wmd-container").find (".wmd-button-bar");
-        if (btnBar.length) {
-            //--- The button bar takes a while to AJAX-in.
-            jThis.data ("loopSafety", 0);
-            var bbListTimer = setInterval ( () => {
-                var lpCnt   = jThis.data ("loopSafety") + 1;
-                jThis.data ("loopSafety", lpCnt);
-                if (lpCnt > 100) {  // 100 ~= 15 seconds
-                    clearInterval (bbListTimer);
-                    if (jThis.is(":visible") ) {  //  Avoid triggering on unused self-answer textarea.
-                        console.warn (`***Userscript error: Unable to find the wmd-button-row.`, jThis);
-                    }
-                }
-                var bbList  = btnBar.find (".wmd-button-row");
-                if (bbList.length) {
-                    clearInterval (bbListTimer);
-                    if (jThis.data ("hasKbdBttn") )  return;  // Guard against multiple timer overlap on slow pages.
-
-                    let insrtPnt = bbList.find (".wmd-button").not (".wmd-help-button").last ();
-                    insrtPnt.after (btnsHtml);
-                    jThis.data ("hasKbdBttn", true);
-                }
-            }, 150);
-        }
-        else {
-            console.warn (`***Userscript error: Unable to find the button bar.`);
-        }
-    }
-}
 
 function InsertOurTagByKeypress (zEvent) {
     //--- At least one modifier must be set
