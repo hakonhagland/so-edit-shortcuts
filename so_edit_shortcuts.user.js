@@ -21,7 +21,7 @@
 // @history     0.1 First version
 // @author      Håkon Hægland
 // @homepage    http://stackapps.com/
-// @updateURL   https://github.com/
+// @updateURL   https://github.com/hakonhagland/so-edit-shortcuts/blob/master/so_edit_shortcuts.user.js
 
 // ==/UserScript==
 /* global $, StackExchange */
