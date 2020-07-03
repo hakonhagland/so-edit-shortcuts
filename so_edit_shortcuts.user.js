@@ -37,7 +37,6 @@ let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
 rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
-rootNode.on ("click",   ".tmAdded",  InsertOurTagByClick);
 
 /*--- Pre-build button HTML. It's like:
         <li class="wmd-button tmAdded wmd-kbd-button" title="Keyboard tag &lt;kbd&gt; Alt+K">
@@ -101,37 +100,6 @@ function InsertOurTagByKeypress (zEvent) {
     return true;
 }
 
-function InsertOurTagByClick () {
-    //--- From the clicked button, find the matching textarea.
-    var jThis       = $(this);
-    var targArea    = jThis.closest (".wmd-button-bar").nextAll (".js-stacks-validation").find ("textarea.wmd-input");
-    if (targArea.length === 0) {
-        //-- The "Edit your profile" page currently uses a different (mostly throwback) layout.
-        targArea    = jThis.closest (".wmd-button-bar").next ("textarea.wmd-input");
-        if (targArea.length === 0) {
-            console.warn (`***Userscript error: Unable to find the textarea from button.`);
-            return;
-        }
-    }
-
-    for (let J in targetCssClasses) {
-        if (jThis.hasClass (targetCssClasses[J] ) ) {
-            let btn     = scConfig[J];
-            let newHTML = btn[4]  ?  btn[1]  :  `<${btn[1]}>`;
-
-            InsertOurTag (targArea[0], newHTML, btn[3], btn[9]);
-            targArea.focus ();
-            try {
-                //--- This is a utility function that SE currently provides on its pages.
-                StackExchange.MarkdownEditor.refreshAllPreviews ();
-            }
-            catch (e) {
-                console.error ("***Userscript error: refreshAllPreviews() is no longer defined!", e);
-            }
-            break;
-        }
-    }
-}
 
 function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
     //--- Wrap selected text or insert at curser.
