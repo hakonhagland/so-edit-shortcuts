@@ -31,32 +31,13 @@ var rootNode = $("#content");
 var scConfig = [
     // titleName,   tagText,  btnText,          bSoloTag, bNotTag, keyTxt, keyCode, kbModifiers (Alt/Ctrl/Shift), kbModArry, bWrapByWord
     // 0            1         2                 3      4      5          6   7        8   9
-    ["Keyboard",    "kbd",    "<kbd>k</kbd>",  false, false, "K",       75, ["Alt"], [], true],
+    ["singleQuote",    "`",    "xx",  false, true, "K",       75, ["Alt"], [], true],
 ];
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
 rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
 
-/*--- Pre-build button HTML. It's like:
-        <li class="wmd-button tmAdded wmd-kbd-button" title="Keyboard tag &lt;kbd&gt; Alt+K">
-            <span><kbd>kb</kbd></span>
-        </li>
-    for each new button.
-*/
-let btnsHtml = "";
-for (let btn of scConfig) {
-    let btnClssTxt      = btn[1].replace (/\W/g, "");
-    btnClssTxt          = `wmd-${btnClssTxt}-button`;
-    let btnTtlDetail    = btn[4]  ?  btn[1]  :  `&lt;${btn[1]}&gt;`;
-    let btnKeyHint      = btn[7].join ('+') + `+${btn[5]}`;
-    targetCssClasses.push (btnClssTxt);
-    btnsHtml += `
-        <li class="wmd-button tmAdded ${btnClssTxt}" title="${btn[0]} ${btnTtlDetail} ${btnKeyHint}">
-            <span>${btn[2]}</span>
-        </li>
-    `;
-}
 
 //--- Compile keyboard modifiers and quick-check list.
 for (let btn of scConfig) {
