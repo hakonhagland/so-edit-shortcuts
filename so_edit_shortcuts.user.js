@@ -32,11 +32,6 @@ var scConfig = [
     // titleName,   tagText,  btnText,          bSoloTag, bNotTag, keyTxt, keyCode, kbModifiers (Alt/Ctrl/Shift), kbModArry, bWrapByWord
     // 0            1         2                 3      4      5          6   7        8   9
     ["Keyboard",    "kbd",    "<kbd>kb</kbd>",  false, false, "K",       75, ["Alt"], [], true],
-    ["Superscript", "sup",    "<sup>sup</sup>", false, false, "&#8593;", 38, ["Alt"], [], false],  // Up arrow
-    ["Subscript",   "sub",    "<sub>sub</sub>", false, false, "&#8595;", 40, ["Alt"], [], false],  // Dwn arrow
-    ["Del/strike",  "del",    "<del>del</del>", false, false, "X",       88, ["Alt"], [], false],
-    ["Break",       "br",     "&crarr;",        true,  false, "B",       66, ["Alt"], [], false],
-    ["em-space",    "&emsp;", "&harr;",         true,  true,  "M",       77, ["Alt"], [], false],
 ];
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
