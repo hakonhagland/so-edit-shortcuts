@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name        StackExchange, add some useful keyboard shortcuts
-// @description Add keyboard shortcuts to for quoting and more
+// @name        StackExchange: Adds some useful keyboard shortcuts
+// @description Add keyboard shortcuts for quoting and more
 // @match       *://*.askubuntu.com/*
 // @match       *://*.mathoverflow.net/*
 // @match       *://*.serverfault.com/*
@@ -24,8 +24,6 @@
 // @updateURL   https://github.com/hakonhagland/so-edit-shortcuts/blob/master/so_edit_shortcuts.user.js
 
 // ==/UserScript==
-/* global $, StackExchange */
-/* eslint-disable no-multi-spaces, curly */
 
 var rootNode = $("#content");
 var scConfig = [
@@ -37,8 +35,8 @@ var scConfig = [
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
-rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
-rootNode.on ("keydown", "textarea.js-comment-text-input", InsertOurTagByKeypress);
+rootNode.on("keydown", "textarea.wmd-input", insertOurTextByKeypress);
+rootNode.on("keydown", "textarea.js-comment-text-input", insertOurTextByKeypress);
 
 //--- Compile keyboard modifiers and quick-check list.
 for (let btn of scConfig) {
@@ -57,7 +55,7 @@ for (let btn of scConfig) {
 }
 
 
-function InsertOurTagByKeypress (zEvent) {
+function insertOurTextByKeypress (zEvent) {
     //--- At least one modifier must be set
     if ( !zEvent.altKey  &&  !zEvent.ctrlKey  &&  !zEvent.shiftKey) {
         return true;
@@ -75,7 +73,7 @@ function InsertOurTagByKeypress (zEvent) {
     }
     if (matchesEvent) {
         let newHTML = btn[4]  ?  btn[1]  :  `<${btn[1]}>`;
-        InsertOurTag (this, newHTML, btn[3], btn[9]);
+        insertOurText (this, newHTML, btn[3], btn[9]);
         return false;
     }
     //--- Ignore all other keys.
@@ -83,7 +81,7 @@ function InsertOurTagByKeypress (zEvent) {
 }
 
 
-function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
+function insertOurText (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
     //--- Wrap selected text or insert at curser.
     var tagLength       = tagTxt.length;
     var endTag          = tagTxt.replace (/</, "</");
@@ -184,27 +182,3 @@ function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
     node.selectionEnd   = iTargetEnd;
 }
 
-//--- Touch up styles...
-var newStyle         = document.createElement ('style');
-newStyle.textContent = `
-    .tmAdded > span {
-        background-image: none;
-    }
-    .tmAdded:hover {
-        color: orange;
-    }
-    .wmd-kbd-button {
-        margin-right: 1ex;
-    }
-    .wmd-kbd-button > span > kbd {
-        border: 0px;
-    }
-    .wmd-kbd-button:hover > span > kbd {
-        background: orange;
-    }
-    .wmd-br-button > span {
-        font-size: 120%;
-        font-weight: bold;
-    }
-`;
-document.head.appendChild (newStyle);
