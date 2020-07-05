@@ -39,7 +39,7 @@ let targetCssClasses    = [];
 
 rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
 
-console.warn ("This is a test");
+console.warn ("This is a test2");
 
 //--- Compile keyboard modifiers and quick-check list.
 for (let btn of scConfig) {
