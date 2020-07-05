@@ -185,27 +185,3 @@ function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
     node.selectionEnd   = iTargetEnd;
 }
 
-//--- Touch up styles...
-var newStyle         = document.createElement ('style');
-newStyle.textContent = `
-    .tmAdded > span {
-        background-image: none;
-    }
-    .tmAdded:hover {
-        color: orange;
-    }
-    .wmd-kbd-button {
-        margin-right: 1ex;
-    }
-    .wmd-kbd-button > span > kbd {
-        border: 0px;
-    }
-    .wmd-kbd-button:hover > span > kbd {
-        background: orange;
-    }
-    .wmd-br-button > span {
-        font-size: 120%;
-        font-weight: bold;
-    }
-`;
-document.head.appendChild (newStyle);
