@@ -33,7 +33,7 @@ var scConfig = [
     // 0            1         2                 3      4      5          6   7        8   9
     ["singleQuote",    "`",    "xx",  false, true, ",",       219, ["Ctrl"], [], true],
     ["tripleQuote",    "```",    "xx",  false, true, ".",       221, ["Ctrl"], [], true],
-    ["textQuote",    '*"',    "xx",  false, true, '"',       50, ["Alt"], [], true],
+    ["textQuote",    '*"',    "xx",  false, true, '"',       191, ["Ctrl"], [], true],
 ];
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
