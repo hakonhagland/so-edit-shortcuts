@@ -38,10 +38,10 @@ let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
 
-rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
-rootNode.on ("keydown", "textarea.js-comment-text-input", InsertOurTagByKeypress);
+rootNode.on ("keydown", "textarea.wmd-input", insertOurTextByKeypress);
+rootNode.on ("keydown", "textarea.js-comment-text-input", insertOurTextByKeypress);
 
-console.warn ("This is a test2");
+//console.warn ("This is a test2");
 
 //--- Compile keyboard modifiers and quick-check list.
 for (let btn of scConfig) {
@@ -60,7 +60,7 @@ for (let btn of scConfig) {
 }
 
 
-function InsertOurTagByKeypress (zEvent) {
+function insertOurTextByKeypress (zEvent) {
     //--- At least one modifier must be set
     if ( !zEvent.altKey  &&  !zEvent.ctrlKey  &&  !zEvent.shiftKey) {
         return true;
@@ -78,7 +78,7 @@ function InsertOurTagByKeypress (zEvent) {
     }
     if (matchesEvent) {
         let newHTML = btn[4]  ?  btn[1]  :  `<${btn[1]}>`;
-        InsertOurTag (this, newHTML, btn[3], btn[9]);
+        insertOurText(this, newHTML, btn[3], btn[9]);
         return false;
     }
     //--- Ignore all other keys.
@@ -86,7 +86,7 @@ function InsertOurTagByKeypress (zEvent) {
 }
 
 
-function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
+function insertOurText(node, tagTxt, bTagHasNoEnd, bWrapByWord) {
     //--- Wrap selected text or insert at curser.
     var tagLength       = tagTxt.length;
     var endTag          = tagTxt.replace (/</, "</");
@@ -113,25 +113,6 @@ function InsertOurTag (node, tagTxt, bTagHasNoEnd, bWrapByWord) {
             possWrappedTxt  = "Text can't be wrapped, cause we overran the string.";
         }
 
-        /*--- Is the current selection wrapped?  If so, just unwrap it.
-            This works the same way as SE's bold, italic, code, etc...
-            "]text["                --> "<sup>]text[</sup>"
-            "<sup>]text[</sup>"     --> "]text["
-            "]<sup>text</sup>["     --> "<sup>]<sup>text</sup>[</sup>"
-
-            Except that:
-            "]["                    --> "<sup>][</sup>"
-            "<sup>][</sup>"         --> "]["
-            with no placeholder text.
-
-            And (Wrap by Word Mode):
-            "]Shift P["                         --> "<kbd>]Shift</kbd> <kbd>P[</kbd>"
-            "<kbd>]Shift</kbd> <kbd>P[</kbd>"   --> "]Shift P["
-
-            And: No wrapping or unwrapping is done on tags with no end tag, nor on non-tag text.
-
-            Note that `]` and `[` denote the selected text here.
-        */
         if (possWrappedTxt  &&
             selectedText    == possWrappedTxt.replace (unwrapRegex, "$1")
         ) {
