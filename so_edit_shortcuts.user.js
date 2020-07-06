@@ -31,7 +31,7 @@ var rootNode = $("#content");
 var scConfig = [
     // titleName,   tagText,  btnText,          bSoloTag, bNotTag, keyTxt, keyCode, kbModifiers (Alt/Ctrl/Shift), kbModArry, bWrapByWord
     // 0            1         2                 3      4      5          6   7        8   9
-    ["singleQuote",    "`",    "xx",  false, true, ",",       188, ["Alt"], [], true],
+    ["singleQuote",    "`",    "xx",  false, true, ",",       188, ["Ctrl"], [], true],
     ["tripleQuote",    "```",    "xx",  false, true, ".",       190, ["Alt"], [], true],
 ];
 let targetKeyCodes      = [];
