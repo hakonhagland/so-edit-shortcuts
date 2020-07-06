@@ -37,7 +37,9 @@ var scConfig = [
 let targetKeyCodes      = [];
 let targetCssClasses    = [];
 
+
 rootNode.on ("keydown", "textarea.wmd-input", InsertOurTagByKeypress);
+rootNode.on ("keydown", "textarea.js-comment-text-input", InsertOurTagByKeypress);
 
 console.warn ("This is a test2");
 
